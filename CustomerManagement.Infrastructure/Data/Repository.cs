@@ -30,9 +30,9 @@ namespace CustomerManagement.Infrastructure.Data
             return _entity.AsNoTracking();
         }
 
-        public async Task<TEntity> InsertAsync(TEntity entity)
+        public  TEntity Insert(TEntity entity)
         {
-            await _dbContext.Set<TEntity>().AddAsync(entity);
+             _dbContext.Set<TEntity>().Add(entity);
             return entity;
         }
 
