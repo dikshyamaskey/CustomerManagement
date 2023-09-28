@@ -1,18 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace CustomerManagement.Application.Interface
 {
-    public interface IUnitOfWork<out TContext> where TContext : DbContext, new()
+    public interface IUnitOfWork :IDisposable
     {
-        //The following Property is going to hold the context object
-        TContext Context { get; }
-        //Start the database Transaction
-        void CreateTransaction();
+
         //Commit the database Transaction
         void Commit();
         //Rollback the database Transaction
         void Rollback();
         //DbContext Class SaveChanges method
-        Task<int> CommitAsync();
+        Task CommitAsync();
     }
 }

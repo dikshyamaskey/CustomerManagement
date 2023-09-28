@@ -27,7 +27,7 @@ namespace CustomerManagement.Infrastructure
         private static void AddRepositories(this IServiceCollection services)
         {
             services
-                .AddTransient(typeof(IUnitOfWork<>), typeof(UnitOfWork<>))
+                .AddTransient<IUnitOfWork,UnitOfWork>()
                 .AddTransient(typeof(IRepository<>), typeof(Repository<>));
 
 
