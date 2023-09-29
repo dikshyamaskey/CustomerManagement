@@ -18,8 +18,10 @@ builder.Services.AddSwaggerGen();
 ConfigurationManager configuration = builder.Configuration;
 
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IUnitofWorkFactory, UnitofWorkFactory>();
 builder.Services.AddInfrastructureLayer(builder.Configuration);
 builder.Services.AddApplicationServices();
+
 
 var app = builder.Build();
 app.UseMiddleware<ExceptionHandlingMiddleware>();

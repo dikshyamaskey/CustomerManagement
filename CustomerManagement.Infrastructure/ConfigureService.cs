@@ -19,17 +19,15 @@ namespace CustomerManagement.Infrastructure
         {
             var connectionString = configuration.GetConnectionString("DefaultConnection");
 
-        
-           services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(options =>
-            {
-                object value = "";
-            });
+            services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(options =>
+           options.UseSqlServer(connectionString,
+               builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
         }
 
         private static void AddRepositories(this IServiceCollection services)
         {
             services
-                .AddTransient(typeof(IUnitOfWork<>), typeof(UnitOfWork<>))
+                .AddTransient<IUnitOfWork,UnitOfWork>()
                 .AddTransient(typeof(IRepository<>), typeof(Repository<>));
 
 
