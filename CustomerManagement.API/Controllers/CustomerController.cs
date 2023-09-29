@@ -1,4 +1,4 @@
-﻿using CustomerManagement.Application.User.Commands.CreateUser;
+﻿using CustomerManagement.Application.Users.Commands.CreateUser;
 using CustomerManagement.Core.Common.Model;
 using CustomerManagement.Application.Interface;
 using CustomerManagement.Core.Entities;
