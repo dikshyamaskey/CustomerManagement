@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace CustomerManagement.Infrastructure
 {
-    public static class IServiceCollectionExtensions
+    public static class ConfigureService
     {
         public static void AddInfrastructureLayer(this IServiceCollection services, IConfiguration configuration)
         {

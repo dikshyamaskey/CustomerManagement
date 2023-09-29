@@ -1,4 +1,6 @@
 using CustomerManagement.API.Controllers;
+using CustomerManagement.API.ExceptionHandlingMiddleware;
+using CustomerManagement.Application;
 using CustomerManagement.Application.Interface;
 using CustomerManagement.Core.Entities;
 using CustomerManagement.Infrastructure;
@@ -17,11 +19,10 @@ ConfigurationManager configuration = builder.Configuration;
 
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddInfrastructureLayer(builder.Configuration);
-
-
-
+builder.Services.AddApplicationServices();
 
 var app = builder.Build();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 
 // Configure the HTTP request pipeline.

@@ -1,4 +1,6 @@
-﻿using CustomerManagement.Core.Entities;
+﻿using CustomerManagement.Application.User.Commands.CreateUser;
+using CustomerManagement.Core.Common.Model;
+using CustomerManagement.Core.Entities;
 using CustomerManagement.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +23,16 @@ namespace CustomerManagement.API.Controllers
             _customerService.Get();
             return Ok();
         }
+    }
+
+    public class RozeenController : CustomerBaseController
+    {
+        [HttpPost]
+        public async Task<ActionResult<Result<string>>> CreateUser([FromBody] CreateUserCommand command)
+        {
+            return await Mediator.Send(command);
+        }
+
     }
     public interface ICustomerService
     {
