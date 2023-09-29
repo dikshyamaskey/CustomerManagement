@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CustomerManagement.Core.Common
 {
-    public class Entity
+    public class Entity<TKey>
     {
-        public Guid Id { get; set; }
+
+        [Key]
+        public TKey Id { get; set; }
     }
 }

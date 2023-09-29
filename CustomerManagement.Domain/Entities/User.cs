@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CustomerManagement.Core.Entities
 {
-    public class User:Entity
+    public class User:Entity<Guid>
     {
         [StringLength(50)]
         [Required]

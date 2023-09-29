@@ -10,8 +10,9 @@ namespace CustomerManagement.Application.Interface
 {
     public interface IApplicationDbContext
     {
-        public DbSet<Core.Entities.User> User { get; }
-        public DbSet<Core.Entities.Employee> Employee { get;  }
-        public DbSet<Core.Entities.Customer> Customer { get; }
+        public DbSet<User> User { get; }
+        public DbSet<Employee> Employee { get;  }
+        public DbSet<Customer> Customer { get; }
+        public DbSet<Membership> Membership { get; }
     }
 }

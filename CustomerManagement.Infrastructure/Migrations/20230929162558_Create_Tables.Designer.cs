@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CustomerManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230928072550_CreateAlTables")]
-    partial class CreateAlTables
+    [Migration("20230929162558_Create_Tables")]
+    partial class Create_Tables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,14 +42,24 @@ namespace CustomerManagement.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("MembershipId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
                     b.ToTable("Customer");
                 });
 
             modelBuilder.Entity("CustomerManagement.Core.Entities.Employee", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("HireDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("JobTitle")
                         .IsRequired()
@@ -61,7 +71,32 @@ namespace CustomerManagement.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
                     b.ToTable("Employee");
+                });
+
+            modelBuilder.Entity("CustomerManagement.Core.Entities.Membership", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DiscountTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MembershipName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Membership");
                 });
 
             modelBuilder.Entity("CustomerManagement.Core.Entities.User", b =>
@@ -102,7 +137,29 @@ namespace CustomerManagement.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmailAddress")
+                        .IsUnique();
+
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("CustomerManagement.Core.Entities.Customer", b =>
+                {
+                    b.HasOne("CustomerManagement.Core.Entities.Membership", "Membership")
+                        .WithMany()
+                        .HasForeignKey("MembershipId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CustomerManagement.Core.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Membership");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }
