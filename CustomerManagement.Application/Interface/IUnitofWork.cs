@@ -11,6 +11,6 @@ namespace CustomerManagement.Application.Interface
         //Rollback the database Transaction
         void Rollback();
         //DbContext Class SaveChanges method
-        Task CommitAsync();
+        Task CommitAsync(CancellationToken cancellationToken);
     }
 }

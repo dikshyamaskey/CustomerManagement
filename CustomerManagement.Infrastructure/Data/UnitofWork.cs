@@ -63,13 +63,13 @@ namespace CustomerManagement.Infrastructure.Data
         //The CommitAsync() Method Implement DbContext Class SaveChanges method 
         //So whenever we do a transaction we need to call this CommitAsync() method 
         //so that it will make the changes in the database permanently
-        public async Task CommitAsync()
+        public async Task CommitAsync(CancellationToken cancellationToken)
         {
             //Calling DbContext Class SaveChanges method
             try
             {
-                await _applicationDbContext.SaveChangesAsync();
-                await _objTran.CommitAsync();
+                await _applicationDbContext.SaveChangesAsync(cancellationToken);
+                await _objTran.CommitAsync(cancellationToken);
             }
             catch (Exception ex)
             {

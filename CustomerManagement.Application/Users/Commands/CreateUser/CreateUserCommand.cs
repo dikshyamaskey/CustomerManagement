@@ -8,11 +8,11 @@ public class CreateUserCommand : UserCreateRequestDto, ICommand<string>
 {
 }
 
-internal sealed class CreateUserCommandHandler : ICommandHandler<CreateUserCommand, string>
-{
-    
-    public async Task<Result<string>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
-    {
-        return "hello from other side";
-    }
-}
+// internal sealed class CreateUserCommandHandler : ICommandHandler<CreateUserCommand, string>
+// {
+//     
+//     public async Task<Result<string>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+//     {
+//         return "hello from other side";
+//     }
+// }

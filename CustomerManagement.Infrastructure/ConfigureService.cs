@@ -13,6 +13,7 @@ namespace CustomerManagement.Infrastructure
         {
             services.AddDbContext(configuration);
             services.AddRepositories();
+            services.AddScoped<ApplicationDbContextInitialiser>();
         }
 
         public static void AddDbContext(this IServiceCollection services, IConfiguration configuration)
