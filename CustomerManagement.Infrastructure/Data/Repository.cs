@@ -55,5 +55,15 @@ namespace CustomerManagement.Infrastructure.Data
             return  await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
+        public async Task AddRangeAsync(IEnumerable<TEntity> entity)
+        {
+            await _entity.AddRangeAsync(entity);
+        }
+
+        public async Task<TEntity> InsertAsync(TEntity entity, CancellationToken cancellationToken)
+        {
+            _dbContext.Set<TEntity>().AddAsync(entity,cancellationToken);
+            return entity;        
+        }
     }
 }

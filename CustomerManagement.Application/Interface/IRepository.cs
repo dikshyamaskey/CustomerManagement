@@ -9,6 +9,8 @@
          void  Update(TEntity entity);
          void  Delete(TEntity entity);
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+        Task AddRangeAsync(IEnumerable<TEntity> entity);
+        Task<TEntity> InsertAsync(TEntity entity, CancellationToken cancellationToken);
 
 
     }

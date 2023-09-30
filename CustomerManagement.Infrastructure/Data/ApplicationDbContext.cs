@@ -1,13 +1,20 @@
 ﻿
 using CustomerManagement.Application.Interface;
 using CustomerManagement.Core.Entities;
+using CustomerManagement.Infrastructure.Common;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomerManagement.Infrastructure.Data
 {
     public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
-        public ApplicationDbContext(DbContextOptions options) : base(options) { }
+        private readonly IMediator _mediator;
+
+        public ApplicationDbContext(DbContextOptions options, IMediator mediator) : base(options)
+        {
+            _mediator = mediator;
+        }
 
         public DbSet<User> User=>Set<User>();
         public DbSet<Employee> Employee => Set<Employee>();
@@ -23,6 +30,13 @@ namespace CustomerManagement.Infrastructure.Data
             base.OnModelCreating(modelBuilder);
            
         }
+        
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            await _mediator.DispatchDomainEvents(this);
+            return await base.SaveChangesAsync(cancellationToken);
+        }
+
 
     }
 }

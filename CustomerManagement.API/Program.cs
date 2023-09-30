@@ -17,7 +17,7 @@ builder.Services.AddSwaggerGen();
 
 ConfigurationManager configuration = builder.Configuration;
 
-builder.Services.AddScoped<ICustomerService, CustomerService>();
+// builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IUnitofWorkFactory, UnitofWorkFactory>();
 builder.Services.AddInfrastructureLayer(builder.Configuration);
 builder.Services.AddApplicationServices();
@@ -25,7 +25,11 @@ builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 app.UseMiddleware<ExceptionHandlingMiddleware>();
-
+using (var scope = app.Services.CreateScope())
+{
+    var initializer = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
+    await initializer.SeedAsync();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
