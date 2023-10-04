@@ -6,6 +6,7 @@ using CustomerManagement.Application.Users.Queries.FetchCustomerQuery.Dto;
 using CustomerManagement.Core.Entities;
 using CustomerManagement.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
+using CustomerManagement.Application.Users.Commands.UpdateUser;
 
 namespace CustomerManagement.API.Controllers
 {
@@ -20,6 +21,11 @@ namespace CustomerManagement.API.Controllers
         
         [HttpGet]
         public async Task<ActionResult<Result<CustomerDetailDto>>> GetUser([FromQuery] FetchCustomerQuery command)
+        {
+            return await Mediator.Send(command);
+        }
+        [HttpPut]
+        public async Task<ActionResult<Result<string>>> UpdateUser([FromQuery] UpdateUserCommand command)
         {
             return await Mediator.Send(command);
         }

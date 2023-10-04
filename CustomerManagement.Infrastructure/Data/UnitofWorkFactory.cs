@@ -24,8 +24,4 @@ namespace CustomerManagement.Infrastructure.Data
 
       
     }
-    public interface IUnitofWorkFactory
-    {
-         IUnitOfWork CreateUnitOfWork();
-    }
 }
